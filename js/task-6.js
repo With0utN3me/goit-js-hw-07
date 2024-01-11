@@ -3,35 +3,39 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
+
+
+const inputNumber = document.querySelector(`input[type="number"]`)
+const boxWithBoxes = document.querySelector("#boxes");
+const create = document.querySelector("[data-create]");
+const destroy = document.querySelector("[data-destroy]");
+
+
 function createBoxes(amount){
   
   if(amount <= 100 && amount >= 1){
-    let markup = 30 + 10 * amount;
+    let size = 30;
     for(let i = 1; i <= amount; i++){
-    markup -= 10;
-    boxWithBoxes.insertAdjacentHTML("afterbegin", `<div style="background-color:${getRandomHexColor()}; width: ${markup}px; height: ${markup}px;"></div>`)
+    boxWithBoxes.insertAdjacentHTML("beforeend", `<div style="background-color:${getRandomHexColor()}; width: ${size}px; height: ${size}px;"></div>`)
     console.log(i);
+    size += 10;
     }
   }
   else {
-    boxWithBoxes.insertAdjacentHTML("afterbegin", "Try another number!");
+    alert("Try another number!");
   }
 }
-let inputNumber = document.querySelector(`input[type="number"]`)
-let boxWithBoxes = document.querySelector("#boxes");
-let create = document.querySelector("[data-create]");
-let destroy = document.querySelector("[data-destroy]");
 
 
-create.addEventListener("click", () => {
+function destroyBoxes(){
   boxWithBoxes.innerHTML = "";
+}
+create.addEventListener("click", () => {
+  destroyBoxes();
   createBoxes(Number(inputNumber.value));
   inputNumber.value = "";
 })
 
-
-
-
 destroy.addEventListener("click", () => {
-  boxWithBoxes.innerHTML = "";
+  destroyBoxes()
 })
